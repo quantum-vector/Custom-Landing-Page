@@ -26,36 +26,52 @@ layout: default
   <script>
     const textarea = document.getElementById("channelList");
 
-    function loadList() {
-      const saved = localStorage.getItem("channels");
-      if (saved) {
-        textarea.value = JSON.parse(saved).join("\n");
-      }
+---
+layout: default
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Random YouTube Channel</title>
+  <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | relative_url }}">
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #0d1117; /* dark gray */
+      color: #c9d1d9;      /* GitHub-style text */
+      line-height: 1.6;
     }
 
-    function saveList() {
-      const channels = textarea.value
-        .split("\n")
-        .map(line => line.trim())
-        .filter(line => line.length > 0);
-      localStorage.setItem("channels", JSON.stringify(channels));
-      alert("List saved!");
+    header {
+      background: linear-gradient(135deg, #0d47a1, #1976d2);
+      padding: 2rem 1rem;
+      text-align: center;
+      color: white;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
     }
 
-    function openRandom() {
-      const channels = textarea.value
-        .split("\n")
-        .map(line => line.trim())
-        .filter(line => line.length > 0);
-      if (channels.length === 0) {
-        alert("No channels in the list!");
-        return;
-      }
-      const random = channels[Math.floor(Math.random() * channels.length)];
-      window.open(random, "_blank");
+    .container {
+      max-width: 720px;
+      margin: 2rem auto;
+      padding: 1.5rem;
     }
 
-    document.getElementById("openRandom").addEventListener("click", openRandom);
+    .card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    h2 {nt.getElementById("openRandom").addEventListener("click", openRandom);
     document.getElementById("saveList").addEventListener("click", saveList);
 
     loadList();
