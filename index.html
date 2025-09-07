@@ -1,28 +1,31 @@
+---
+layout: default
+---
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Random YouTube Channel</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 30px; }
-    textarea { width: 100%; height: 150px; }
-    button { margin: 10px 5px 0 0; padding: 8px 12px; }
-  </style>
+  <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | relative_url }}">
 </head>
 <body>
-  <h1>Random YouTube Channel</h1>
+  <div class="container">
+    <h1>Random YouTube Channel</h1>
 
-  <button id="openRandom">Open Random Channel</button>
-  <button id="saveList">Save List</button>
+    <p>
+      <button id="openRandom">Open Random Channel</button>
+      <button id="saveList">Save List</button>
+    </p>
 
-  <h2>Channel List</h2>
-  <p>One URL per line:</p>
-  <textarea id="channelList"></textarea>
+    <h2>Channel List</h2>
+    <p>One URL per line:</p>
+    <textarea id="channelList" style="width:100%; height:150px;"></textarea>
+  </div>
 
   <script>
     const textarea = document.getElementById("channelList");
 
-    // Load list from localStorage
     function loadList() {
       const saved = localStorage.getItem("channels");
       if (saved) {
@@ -30,16 +33,15 @@
       }
     }
 
-    // Save list to localStorage
     function saveList() {
       const channels = textarea.value
         .split("\n")
         .map(line => line.trim())
         .filter(line => line.length > 0);
       localStorage.setItem("channels", JSON.stringify(channels));
+      alert("List saved!");
     }
 
-    // Open a random channel
     function openRandom() {
       const channels = textarea.value
         .split("\n")
