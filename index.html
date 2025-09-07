@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Random YouTube Channel</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 30px; }
+    textarea { width: 100%; height: 150px; }
+    button { margin: 10px 5px 0 0; padding: 8px 12px; }
+  </style>
+</head>
+<body>
+  <h1>Random YouTube Channel</h1>
+
+  <button id="openRandom">Open Random Channel</button>
+  <button id="saveList">Save List</button>
+
+  <h2>Channel List</h2>
+  <p>One URL per line:</p>
+  <textarea id="channelList"></textarea>
+
+  <script>
+    const textarea = document.getElementById("channelList");
+
+    // Load list from localStorage
+    function loadList() {
+      const saved = localStorage.getItem("channels");
+      if (saved) {
+        textarea.value = JSON.parse(saved).join("\n");
+      }
+    }
+
+    // Save list to localStorage
+    function saveList() {
+      const channels = textarea.value
+        .split("\n")
+        .map(line => line.trim())
+        .filter(line => line.length > 0);
+      localStorage.setItem("channels", JSON.stringify(channels));
+    }
+
+    // Open a random channel
+    function openRandom() {
+      const channels = textarea.value
+        .split("\n")
+        .map(line => line.trim())
+        .filter(line => line.length > 0);
+      if (channels.length === 0) {
+        alert("No channels in the list!");
+        return;
+      }
+      const random = channels[Math.floor(Math.random() * channels.length)];
+      window.open(random, "_blank");
+    }
+
+    document.getElementById("openRandom").addEventListener("click", openRandom);
+    document.getElementById("saveList").addEventListener("click", saveList);
+
+    loadList();
+  </script>
+</body>
+</html>
